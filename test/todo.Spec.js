@@ -16,5 +16,21 @@ describe('TodoListController', function() {
 			controller.addTodo();
 			expect(controller.todos).toEqual([{text:'abcdefghijklmnopqrstuvwxyz', done:false}]);
 		});
+		
+		it('add empty does nothing', function() {
+			var controller = $controller('TodoListController', { });
+			controller.todoText = '';
+			controller.todos = [ ];
+			controller.addTodo();
+			expect(controller.todos).toEqual([]);
+		});
+		
+		it('add empty trimmed does nothing', function() {
+			var controller = $controller('TodoListController', { });
+			controller.todoText = ' \t\n';
+			controller.todos = [ ];
+			controller.addTodo();
+			expect(controller.todos).toEqual([]);
+		});
 	});
 });
