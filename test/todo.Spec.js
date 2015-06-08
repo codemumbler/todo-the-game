@@ -30,4 +30,20 @@ describe('TodoListController', function() {
 			expect(controller.todoText).toEqual('');
 		});
 	});
+	
+	describe('$controller.achievement', function() {
+		it('add first todo', function() {
+			controller.todoText = 'First';
+			controller.addTodo();
+			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'}]);
+		});
+		
+		it('no repeat achievements', function() {
+			controller.todoText = 'First';
+			controller.addTodo();
+			controller.todoText = 'Second';
+			controller.addTodo();
+			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'}]);
+		});
+	});
 });
