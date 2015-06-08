@@ -32,6 +32,11 @@
 					<span class="done-{{todo.done}}">{{todo.text}}</span>
 				</li>
 			</ul>
+			<ul class="list-inline" ng-cloak>
+				<li ng-repeat="achievement in todoList.achievementsUnlocked">
+					<img src="{{achievement.img}}" style="height:50px;width:50px;" />
+				</li>
+			</ul>
 		</div>
 
 		<script src="js/lib/angular.min.js"></script>
