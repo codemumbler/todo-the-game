@@ -21,7 +21,7 @@
 	<body>
 		<h3>TODO: The Game</h3>
 		<div ng-controller="TodoListController as todoList">
-			<ul class="unstyled">
+			<ul class="unstyled" ng-cloak>
 				<li ng-repeat="todo in todoList.todos">
 					<input type="checkbox" ng-model="todo.done">
 					<span class="done-{{todo.done}}">{{todo.text}}</span>
