@@ -45,14 +45,11 @@ describe('TodoListController', function() {
 			addItem('Second');
 			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'}]);
 		});
-	});
-	
-	describe('$controller.complete', function() {
-		it('complete item marked as done', function() {
+		
+		it('complete first item for achievement', function() {
 			addItem('First');
-			var item = controller.todos[0];
-			$scope.complete(0);
-			expect(item.done).toEqual(true);
+			$scope.complete();
+			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'},{name:'First Completed Todo', img:'1.png'}]);
 		});
 	});
 });

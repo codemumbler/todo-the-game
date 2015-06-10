@@ -1,7 +1,10 @@
 angular.module('todoApp', [])
 	.controller('TodoListController', function($scope) {
 		var todoList = this;
-		var achievements = [ {name:'First Added Todo', img:'1.png'} ];
+		var achievements = {
+			"firstCreated" : {name:'First Added Todo', img:'1.png'}, 
+			"firstCompleted" : {name:'First Completed Todo', img:'1.png'} 
+		};
 		todoList.todos = [ ];
 		todoList.achievementsUnlocked = [ ];
 		todoList.todoText = '';
@@ -12,7 +15,7 @@ angular.module('todoApp', [])
 					text : todoList.todoText, 
 					done : false
 				});
-				todoList.addAchievement(achievements[0]);
+				todoList.addAchievement(achievements.firstCreated);
 			}
 			todoList.todoText = '';
 		};
@@ -22,8 +25,8 @@ angular.module('todoApp', [])
 				todoList.achievementsUnlocked.push(achievement);
 		};
 		
-		$scope.complete = function(index) {
-			todoList.todos[index].done = true;
+		$scope.complete = function() {
+			todoList.addAchievement(achievements.firstCompleted);
 		};
 	}
 );
