@@ -1,5 +1,5 @@
 angular.module('todoApp', [])
-	.controller('TodoListController', function() {
+	.controller('TodoListController', function($scope) {
 		var todoList = this;
 		var achievements = [ {name:'First Added Todo', img:'1.png'} ];
 		todoList.todos = [ ];
@@ -20,6 +20,10 @@ angular.module('todoApp', [])
 		todoList.addAchievement = function(achievement) {
 			if ( todoList.achievementsUnlocked.indexOf(achievement) === -1 )
 				todoList.achievementsUnlocked.push(achievement);
+		};
+		
+		$scope.complete = function(index) {
+			todoList.todos[index].done = true;
 		};
 	}
 );
