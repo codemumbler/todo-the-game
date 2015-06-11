@@ -52,4 +52,17 @@ describe('TodoListController', function() {
 			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'},{name:'First Completed Todo', img:'1.png'}]);
 		});
 	});
+	
+	describe('$controller.experience', function() {
+		it('gain 5 experience for items added', function() {
+			addItem('First');
+			expect(controller.experience).toEqual(5);
+		});
+		
+		it('gain 10 experience for items completed', function() {
+			addItem('First');
+			$scope.complete();
+			expect(controller.experience).toEqual(15);
+		});
+	});
 });

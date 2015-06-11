@@ -8,6 +8,7 @@ angular.module('todoApp', [])
 		todoList.todos = [ ];
 		todoList.achievementsUnlocked = [ ];
 		todoList.todoText = '';
+		todoList.experience = 0;
 
 		todoList.addTodo = function() {
 			if ( todoList.todoText.trim() != '' ) {
@@ -15,6 +16,7 @@ angular.module('todoApp', [])
 					text : todoList.todoText, 
 					done : false
 				});
+				todoList.gainExperience(5);
 				todoList.addAchievement(achievements.firstCreated);
 			}
 			todoList.todoText = '';
@@ -25,7 +27,12 @@ angular.module('todoApp', [])
 				todoList.achievementsUnlocked.push(achievement);
 		};
 		
+		todoList.gainExperience = function(exp) {
+			todoList.experience += exp;
+		};
+		
 		$scope.complete = function() {
+			todoList.gainExperience(10);
 			todoList.addAchievement(achievements.firstCompleted);
 		};
 	}
