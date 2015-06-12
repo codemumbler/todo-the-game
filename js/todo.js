@@ -9,6 +9,7 @@ angular.module('todoApp', [])
 		todoList.achievementsUnlocked = [ ];
 		todoList.todoText = '';
 		todoList.experience = 0;
+		todoList.level = 1;
 
 		todoList.addTodo = function() {
 			if ( todoList.todoText.trim() != '' ) {
@@ -29,6 +30,9 @@ angular.module('todoApp', [])
 		
 		todoList.gainExperience = function(exp) {
 			todoList.experience += exp;
+			if ( todoList.experience > 100 ) {
+				todoList.level = 2;
+			}
 		};
 		
 		$scope.complete = function() {

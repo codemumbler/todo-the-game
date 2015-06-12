@@ -65,4 +65,14 @@ describe('TodoListController', function() {
 			expect(controller.experience).toEqual(15);
 		});
 	});
+	
+	describe('$controller.level', function() {
+		it('gain a level after 100 experience', function() {
+			for ( var i =0; i < 7; i++) {
+				addItem('First');
+				$scope.complete();
+			}
+			expect(controller.level).toEqual(2);
+		});
+	});
 });
