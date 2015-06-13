@@ -5,6 +5,11 @@ angular.module('todoApp', [])
 			"firstCreated" : {name:'First Added Todo', img:'1.png'}, 
 			"firstCompleted" : {name:'First Completed Todo', img:'1.png'} 
 		};
+		var nextLevel = function(level) {
+			if ( level == 1 )
+				return 100;
+			return (level * 100) + nextLevel(level-1);
+		};
 		todoList.todos = [ ];
 		todoList.achievementsUnlocked = [ ];
 		todoList.todoText = '';
@@ -30,8 +35,8 @@ angular.module('todoApp', [])
 		
 		todoList.gainExperience = function(exp) {
 			todoList.experience += exp;
-			if ( todoList.experience > 100 ) {
-				todoList.level = 2;
+			if ( todoList.experience >= nextLevel(todoList.level) ) {
+				todoList.level++;
 			}
 		};
 		
