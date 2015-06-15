@@ -1,13 +1,19 @@
 describe('TodoListController', function() {
-	beforeEach(module('todoApp'));
+	beforeEach(function(){
+		module('firebase');
+		module('todoApp');
+	});
 
 	var $controller, controller;
 	var $scope = {};
+	var todos = null;
 
-	beforeEach(inject(function(_$controller_){
+	beforeEach(inject(function(_$controller_, _$firebase_, _$firebaseArray_){
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
-		controller = $controller('TodoListController', { $scope : $scope });
+		$firebase = _$firebase_;
+		$firebaseArray = _$firebaseArray_;
+		controller = $controller('TodoListController', { $scope : $scope, "$firebaseArray" : $firebaseArray });
 	}));
 	
 	var addItem = function(item){

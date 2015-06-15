@@ -1,5 +1,6 @@
-angular.module('todoApp', [])
-	.controller('TodoListController', function($scope) {
+var todoApp = angular.module('todoApp', ["firebase"]);
+todoApp.controller('TodoListController', function($scope, $firebaseArray) {
+		var firebaseRef = new Firebase('https://blinding-heat-4074.firebaseio.com/');
 		var todoList = this;
 		var achievements = {
 			"firstCreated" : {name:'First Added Todo', img:'1.png'}, 
@@ -10,7 +11,7 @@ angular.module('todoApp', [])
 				return 100;
 			return (level * 100) + nextLevel(level-1);
 		};
-		todoList.todos = [ ];
+		todoList.todos = $firebaseArray(firebaseRef);
 		todoList.achievementsUnlocked = [ ];
 		todoList.todoText = '';
 		todoList.experience = 0;
@@ -18,7 +19,7 @@ angular.module('todoApp', [])
 
 		todoList.addTodo = function() {
 			if ( todoList.todoText.trim() != '' ) {
-				todoList.todos.push({
+				todoList.todos.$add({
 					text : todoList.todoText, 
 					done : false
 				});
@@ -40,7 +41,8 @@ angular.module('todoApp', [])
 			}
 		};
 		
-		$scope.complete = function() {
+		$scope.complete = function(todo) {
+			todoList.todos.$save(todo);
 			todoList.gainExperience(10);
 			todoList.addAchievement(achievements.firstCompleted);
 		};
