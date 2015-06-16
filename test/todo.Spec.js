@@ -1,41 +1,53 @@
 describe('TodoListController', function() {
 	beforeEach(function(){
+	MockFirebase.override();
 		module('firebase');
 		module('todoApp');
 	});
 
 	var $controller, controller;
 	var $scope = {};
-	var todos = null;
+	var $firebase;
+	var $firebaseArray;
+	var todos;
 
-	beforeEach(inject(function(_$controller_, _$firebase_, _$firebaseArray_){
+	beforeEach(inject(function(_$controller_, _todos_, _$firebase_, _$firebaseArray_){
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
+		todos = _todos_;
 		$firebase = _$firebase_;
 		$firebaseArray = _$firebaseArray_;
-		controller = $controller('TodoListController', { $scope : $scope, "$firebaseArray" : $firebaseArray });
+		controller = $controller('TodoListController', { $scope : $scope, todos: todos });
 	}));
 	
 	var addItem = function(item){
 		controller.todoText = item;
-		controller.addTodo();
+		var item = controller.addTodo();
+		todos.$ref().flush();
+		var autoId = null;
+		var data = controller.todos.$ref().getData();
+		for ( var p in data )
+			autoId = p;
+		if ( autoId == undefined )
+			return null;
+		return data[autoId];
 	};
 
 	describe('$controller.addTodo', function() {
 		it('add todo', function() {
-			addItem('abcdefghijklmnopqrstuvwxyz');
-			expect(controller.todos).toEqual([{text:'abcdefghijklmnopqrstuvwxyz', done:false}]);
+			var item = addItem('abcdefghijklmnopqrstuvwxyz');
+			expect(item).toEqual({text:'abcdefghijklmnopqrstuvwxyz', done:false});
 		});
 		
 		it('add empty does nothing', function() {
-			addItem('');
-			expect(controller.todos).toEqual([]);
+			var item = addItem('');
+			expect(item).toEqual(null);
 			expect(controller.todoText).toEqual('');
 		});
 		
 		it('add empty trimmed does nothing', function() {
-			addItem(' \t\n');
-			expect(controller.todos).toEqual([]);
+			var item = addItem(' \t\n');
+			expect(item).toEqual(null);
 			expect(controller.todoText).toEqual('');
 		});
 	});
