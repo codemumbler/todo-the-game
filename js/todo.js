@@ -49,8 +49,12 @@ todoApp.controller('TodoListController', ["$scope", "todos", function($scope, to
 		
 		$scope.complete = function(todo) {
 			todoList.todos.$save(todo);
-			todoList.gainExperience(10);
-			todoList.addAchievement(achievements.firstCompleted);
+			if ( todo.done ) {
+				todoList.gainExperience(10);
+				todoList.addAchievement(achievements.firstCompleted);
+			} else {
+				todoList.gainExperience(-10);
+			}
 		};
 	}
 ]);

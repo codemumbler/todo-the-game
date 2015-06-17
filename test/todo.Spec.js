@@ -32,7 +32,14 @@ describe('TodoListController', function() {
 			return null;
 		return data[autoId];
 	};
-
+	
+	var completeItem = function(itemText, done) {
+		var item = addItem(itemText);
+		item.done = done;
+		$scope.complete(item);
+		return item;
+	};
+	
 	describe('$controller.addTodo', function() {
 		it('add todo', function() {
 			var item = addItem('abcdefghijklmnopqrstuvwxyz');
@@ -65,8 +72,7 @@ describe('TodoListController', function() {
 		});
 		
 		it('complete first item for achievement', function() {
-			addItem('First');
-			$scope.complete();
+			completeItem('achievement', true);
 			expect(controller.achievementsUnlocked).toEqual([{name:'First Added Todo', img:'1.png'},{name:'First Completed Todo', img:'1.png'}]);
 		});
 	});
@@ -78,31 +84,34 @@ describe('TodoListController', function() {
 		});
 		
 		it('gain 10 experience for items completed', function() {
-			addItem('First');
-			$scope.complete();
+			completeItem('First', true);
 			expect(controller.experience).toEqual(15);
+		});
+		
+		it('unchecking removes experience', function() {
+			var item = completeItem('First', true);
+			item.done = false;
+			$scope.complete(item);
+			expect(controller.experience).toEqual(5);
 		});
 	});
 	
 	describe('$controller.level', function() {
 		it('gain a level after 100 experience', function() {
 			for ( var i =0; i < 7; i++) {
-				addItem('First');
-				$scope.complete();
+				completeItem('to level 2', true);
 			}
 			expect(controller.level).toEqual(2);
 		});
 		it('gain a level after 300 experience', function() {
 			for ( var i =0; i < 20; i++) {
-				addItem('First');
-				$scope.complete();
+				completeItem('to level 3', true);
 			}
 			expect(controller.level).toEqual(3);
 		});
 		it('gain a level after 600 experience', function() {
 			for ( var i =0; i < 40; i++) {
-				addItem('First');
-				$scope.complete();
+				completeItem('to level 4', true);
 			}
 			expect(controller.level).toEqual(4);
 		});
