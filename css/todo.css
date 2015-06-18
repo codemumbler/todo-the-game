@@ -8,6 +8,14 @@
 	margin: 0 auto;
 }
 
+.centered.container {
+	min-width: 550px;
+}
+
+.main-area.centered {
+	min-width: 500px;
+}
+
 .text-centered {
 	text-align: center;
 }
@@ -19,4 +27,9 @@
 
 .item-entry input[type=text] {
 	width: 80%;
+}
+
+.item-entry input[type=submit] {
+	width: 15%;
+	min-width: 60px;
 }
