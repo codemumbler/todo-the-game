@@ -1,0 +1,22 @@
+.banner {
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.centered {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.text-centered {
+	text-align: center;
+}
+
+.item-entry {
+	font-size: 1.5em;
+	margin-bottom: 30px;
+}
+
+.item-entry input[type=text] {
+	width: 80%;
+}

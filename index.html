@@ -10,6 +10,7 @@
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/todo.css">
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -18,28 +19,28 @@
 		<![endif]-->
 	</head>
 	<body>
-		<h3>TODO: The Game</h3>
-		<div ng-controller="TodoListController as todoList">
-			<form ng-submit="todoList.addTodo()">
-				<input type="text" ng-model="todoList.todoText" size="30"
-					placeholder="Add Item">
-				<input class="btn-primary" type="submit" value="add">
-			</form>
-			<ul class="unstyled" ng-cloak>
-				<li ng-repeat="todo in todoList.todos">
-					<input type="checkbox" ng-model="todo.done" ng-click="complete(todo)">
-					<span class="done-{{todo.done}}">{{todo.text}}</span>
-				</li>
-			</ul>
-			<ul class="list-inline" ng-cloak>
-				<li ng-repeat="achievement in todoList.achievementsUnlocked">
-					<img src="{{achievement.img}}" alt="{{achievement.name}}" title="{{achievement.name}}" style="height:50px;width:50px;" />
-				</li>
-			</ul>
-			<div class="experience">Experience points: {{todoList.experience}}</div>
-			<div class="level">Current level: {{todoList.level}}</div>
+		<div class="centered">
+			<h3 class="banner text-centered">TODO: The Game</h3>
+			<div ng-controller="TodoListController as todoList" class="centered">
+				<form ng-submit="todoList.addTodo()" class="item-entry">
+					<input type="text" ng-model="todoList.todoText" placeholder="Add Item">
+					<input class="btn-primary" type="submit" value="Add">
+				</form>
+				<ul class="unstyled" ng-cloak>
+					<li ng-repeat="todo in todoList.todos">
+						<input type="checkbox" ng-model="todo.done" ng-click="complete(todo)">
+						<span class="done-{{todo.done}}">{{todo.text}}</span>
+					</li>
+				</ul>
+				<ul class="list-inline" ng-cloak>
+					<li ng-repeat="achievement in todoList.achievementsUnlocked">
+						<img src="{{achievement.img}}" alt="{{achievement.name}}" title="{{achievement.name}}" style="height:50px;width:50px;" />
+					</li>
+				</ul>
+				<div class="experience">Experience points: {{todoList.experience}}</div>
+				<div class="level">Current level: {{todoList.level}}</div>
+			</div>
 		</div>
-
 		<script src="js/lib/angular.min.js"></script>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src='js/lib/firebase.js'></script>
